@@ -17,7 +17,7 @@ router.get('/:seriesId', async (req, res, next) => {
 
     try {
         let response = await axios.get(
-            `https://gateway.marvel.com/v1/public/series/${seriesId}/comics?&ts=${date}&apikey=${process.env.MARVEL_PUBLIC_KEY}&hash=${hash}`
+            `https://gateway.marvel.com/v1/public/series/${seriesId}/comics?limit=100&ts=${date}&apikey=${process.env.MARVEL_PUBLIC_KEY}&hash=${hash}`
           );
 
           console.log("Response from Marvel ===>", response, req.params);
