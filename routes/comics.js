@@ -32,25 +32,25 @@ router.get('/:seriesId', async (req, res, next) => {
 
 router.get('/details/:comicId', async (req, res, next) => {
 
-    const { comicId } = req.params
+  const { comicId } = req.params
 
-    const date = `${new Date().getTime()}`;
-    let hash = md5(
-      `${date}${process.env.MARVEL_PRIVATE_KEY}${process.env.MARVEL_PUBLIC_KEY}`
-    );
+  const date = `${new Date().getTime()}`;
+  let hash = md5(
+    `${date}${process.env.MARVEL_PRIVATE_KEY}${process.env.MARVEL_PUBLIC_KEY}`
+  );
 
-    try {
-        let response = await axios.get(
-            `https://gateway.marvel.com/v1/public/comics/${comicId}/comics?&ts=${date}&apikey=${process.env.MARVEL_PUBLIC_KEY}&hash=${hash}`
-          );
+  try {
+      let response = await axios.get(
+          `https://gateway.marvel.com/v1/public/comics/${comicId}?&ts=${date}&apikey=${process.env.MARVEL_PUBLIC_KEY}&hash=${hash}`
+        );
 
-          console.log("Response from Marvel ===>", response, req.params);
-          res.json(response.data.data.results[0]);
+        console.log("Response from Marvel ===>", response, req.params);
+        res.json(response.data.data.results[0]);
 
-    } catch(err) {
-        console.log(err)
-        res.json({error: err})
-    }
+  } catch(err) {
+      console.log(err)
+      res.json({error: err})
+  }
 
 })
 
